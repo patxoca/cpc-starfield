@@ -41,7 +41,7 @@ void entity_mgr_gc_mark(entity_t *e) {
 }
 
 //==============================================================================
-// Marca una entitat per destruir-la.
+// Allibera l'espai ocupar per les entitats marcades.
 
 void entity_mgr_gc_sweep(void) {
     entity_t *curr = entities;
