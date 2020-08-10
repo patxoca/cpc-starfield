@@ -15,7 +15,8 @@ void create_star(void) {
     if (e->vx == 0) {
         e->vx = 1;
     }
-    e->vptr = 0;
+    e->vptr = cpct_getScreenPtr(CPCT_VMEM_START, e->x, e->y);
+    e->ovptr = 0;
     e->color = 0x80;
 }
 
@@ -25,6 +26,8 @@ void update_star(entity_t *e) {
     e->x -= e->vx;
     if (px < e->x) {
         entity_mgr_gc_mark(e);
+    } else {
+        e->vptr -= e->vx;
     }
 }
 
@@ -35,13 +38,13 @@ void update_stars(void) {
 void draw_star(entity_t *e) {
     u8 *p;
 
-    if (e->vptr) {
-        *(e->vptr) = 0;
+    if (e->ovptr) {
+        *(e->ovptr) = 0;
     }
     if (ENTITY_IS_ALIVE(e)) {
-        p = cpct_getScreenPtr(CPCT_VMEM_START, e->x, e->y);
+        p = e->vptr;
         *p = e->color;
-        e->vptr = p;
+        e->ovptr = p;
     }
 }
 

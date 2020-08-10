@@ -10,7 +10,8 @@ typedef struct {
     u8 x, y;
     i8 vx;
     u8 color;
-    u8 *vptr;
+    u8 *vptr;    // punter a la memòria de vídeo on pintar
+    u8 *ovptr;   // punter a la memoria de vídeo on esborrar
 } entity_t;
 
 
