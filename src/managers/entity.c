@@ -1,6 +1,6 @@
 #include "entity.h"
 
-#define MAX_ENTITIES 100
+#define MAX_ENTITIES 50
 
 entity_t entities[MAX_ENTITIES];
 u8 num_entities;
