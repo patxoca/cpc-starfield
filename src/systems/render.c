@@ -2,6 +2,14 @@
 #include "../managers/entity.h"
 #include "render.h"
 
+static const u8 palette[16 + 1] = {
+    HW_BLACK, HW_BRIGHT_WHITE, HW_BRIGHT_CYAN, HW_YELLOW,
+    HW_RED,   HW_RED,          HW_RED,           HW_RED,
+    HW_RED,   HW_RED,          HW_RED,           HW_RED,
+    HW_RED,   HW_RED,          HW_RED,           HW_RED,
+    HW_BLACK
+};
+
 void sys_render_draw_star(entity_t *e) __z88dk_fastcall {
     u8 *p;
 
@@ -20,6 +28,7 @@ void sys_render_draw_stars(void) {
 }
 
 void sys_render_init(void) {
-    cpct_setVideoMode(0);
     cpct_disableFirmware();
+    cpct_setVideoMode(0);
+    cpct_setPalette(palette, sizeof(palette));
 }

@@ -11,11 +11,21 @@ void sys_physics_create_star(void) {
     e->y = cpct_rand8() % 200;  // INEFICIENT
     e->vx = cpct_rand8() & 3;
     if (e->vx == 0) {
-        e->vx = 1;
+        e->vx = 1; // HACK: sembla arbitrari, provar amb un do while
     }
     e->vptr = cpct_getScreenPtr(CPCT_VMEM_START, e->x, e->y);
     e->ovptr = 0;
-    e->color = 0x80;
+    switch (e->vx) {
+    case 1:
+        e->color = 0x88;  // colors [1, 0]
+        break;
+    case 2:
+        e->color = 0x08;  // colors [2, 0]
+        break;
+    case 3:
+        e->color = 0x80;  // colors [3, 0]
+        break;
+    }
 }
 
 void sys_physics_update_star(entity_t *e) __z88dk_fastcall {
