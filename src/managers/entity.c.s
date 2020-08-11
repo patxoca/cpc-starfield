@@ -28,7 +28,7 @@
     ;;             curr++;
     ;;         }
     ;;     }
-    ;;     free_ptr = end + 1;
+    ;;     free_ptr = curr;
     ;;     num_entities -= foo;
     ;; }
 
@@ -103,13 +103,7 @@ __entity_mgr_gc_sweep_end_if:
 __entity_mgr_gc_sweep_loop_end:
 
     ;; free_ptr = end + 1
-
-    ;; TODO: optimitzar? crec que al final curr apunta al primer
-    ;; lliure i no cal sumar sizeof(entity_t) a end.
-
-    ld	de, #SIZEOF_ENTITY_T
-    add	hl, de
-    ld	(_free_ptr), hl
+    ld (#_free_ptr), de
 
     ;; actualitza (decrementa) num_entities
     ld hl, #_num_entities
