@@ -20,7 +20,7 @@ void create_star(void) {
     e->color = 0x80;
 }
 
-void update_star(entity_t *e) {
+void update_star(entity_t *e) __z88dk_fastcall {
     u8 px = e->x;
 
     e->x -= e->vx;
@@ -35,7 +35,7 @@ void update_stars(void) {
     entity_mgr_foreach(update_star);
 }
 
-void draw_star(entity_t *e) {
+void draw_star(entity_t *e) __z88dk_fastcall {
     u8 *p;
 
     if (e->ovptr) {

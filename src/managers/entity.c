@@ -78,10 +78,10 @@ void entity_mgr_set_type(entity_t *e, u8 type) {
 //==============================================================================
 // Itera sobre les entitats vives.
 
-void entity_mgr_foreach(void (*f)(entity_t *e)) {
+void entity_mgr_foreach(void (*f)(entity_t *e) __z88dk_fastcall) __z88dk_fastcall {
     entity_t *p = entities;
     u8 count = num_entities;
-    void (*lf)(entity_t *e) = f;
+    void (*lf)(entity_t *e)  __z88dk_fastcall = f;
 
     while (count--) {
         lf(p);
