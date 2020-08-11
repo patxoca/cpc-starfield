@@ -111,13 +111,10 @@ __entity_mgr_gc_sweep_loop_end:
     add	hl, de
     ld	(_free_ptr), hl
 
-    ;; decrementa num_entities
-
-    ;; TODO: optimitzar? C pot valdre zero però crec que comprovar-ho
-    ;; i saltar empitjora el temps.
-
-    ld a, (#_num_entities)
-    sub a, c
-    ld (#_num_entities), a
+    ;; actualitza (decrementa) num_entities
+    ld hl, #_num_entities
+    ld a, (hl)
+    sub c
+    ld (hl), a
 
     ret
