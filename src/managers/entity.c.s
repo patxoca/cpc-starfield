@@ -90,11 +90,13 @@ __entity_mgr_gc_sweep_skip_memcpy:
 
 __entity_mgr_gc_sweep_entity_alive:
     ;; avança el punter a l'entitat actual (DE)
-    push hl
-    ld hl, #SIZEOF_ENTITY_T
-    add hl, de
-    ex de, hl
-    pop hl
+    ld a, #SIZEOF_ENTITY_T
+    add a, e
+    ld e, a
+    adc a, d
+    sub e
+    ld d, a
+
 __entity_mgr_gc_sweep_end_if:
     jr __entity_mgr_gc_sweep_loop
 
