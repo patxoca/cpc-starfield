@@ -1,6 +1,5 @@
     .area _CODE
 
-    .globl _cpct_memcpy
     .globl _entities
     .globl _num_entities
     .globl _free_ptr
