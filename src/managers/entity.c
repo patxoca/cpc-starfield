@@ -34,7 +34,7 @@ entity_t *entity_mgr_alloc(void) {
 //==============================================================================
 // Marca una entitat per destruir-la.
 
-void entity_mgr_gc_mark(entity_t *e) {
+void entity_mgr_gc_mark(entity_t *e) __z88dk_fastcall {
     u8 tmp = e->type;
 
     e->type = (tmp | ENTITY_DEAD_FLAG);

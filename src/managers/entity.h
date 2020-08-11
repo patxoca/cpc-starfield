@@ -17,7 +17,7 @@ typedef struct {
 
 void entity_mgr_init(void);
 entity_t *entity_mgr_alloc(void);
-void entity_mgr_gc_mark(entity_t *e);
+void entity_mgr_gc_mark(entity_t *e) __z88dk_fastcall;
 void entity_mgr_gc_sweep(void);
 void entity_mgr_set_type(entity_t *e, u8 type);
 void entity_mgr_foreach(void (*f)(entity_t *e));
