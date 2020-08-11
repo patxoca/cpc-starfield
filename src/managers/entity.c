@@ -41,26 +41,28 @@ void entity_mgr_gc_mark(entity_t *e) __z88dk_fastcall {
 }
 
 //==============================================================================
-// Allibera l'espai ocupar per les entitats marcades.
+// Allibera l'espai ocupat per les entitats marcades.
 
-void entity_mgr_gc_sweep(void) {
-    entity_t *curr = entities;
-    entity_t *end = free_ptr - 1;
-    u8 count = num_entities;
+/* void entity_mgr_gc_sweep(void) { */
+/*     entity_t *curr = entities; */
+/*     entity_t *end = free_ptr - 1; */
+/*     u8 count = num_entities; */
+/*     u8 foo = 0; */
 
-    while (count--) {
-        if (!ENTITY_IS_ALIVE(curr)) {
-            num_entities--;
-            if (count) {
-                cpct_memcpy(curr, end, sizeof(entity_t));
-            }
-            end--;
-        } else {
-            curr++;
-        }
-    }
-    free_ptr = end + 1;
-}
+/*     while (count--) { */
+/*         if (!ENTITY_IS_ALIVE(curr)) { */
+/*             foo++; */
+/*             if (count) { */
+/*                 cpct_memcpy(curr, end, sizeof(entity_t)); */
+/*             } */
+/*             end--; */
+/*         } else { */
+/*             curr++; */
+/*         } */
+/*     } */
+/*     free_ptr = end + 1; */
+/*     num_entities -= foo; */
+/* } */
 
 //==============================================================================
 // Assigna el tipus.
