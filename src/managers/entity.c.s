@@ -79,15 +79,13 @@ __entity_mgr_gc_sweep_loop:
     pop hl
 __entity_mgr_gc_sweep_skip_memcpy:
     ;; endarrereix el punter a la última entitat (HL)
+    ld a, l
+    sub #SIZEOF_ENTITY_T
+    ld l, a
+    ld a, h
+    sbc a, #0
+    ld h, a
 
-    ;; TODO: optimitzar? eliminar push/pop en end-- i curr++, calcular
-    ;; la suma byte a byte via ADD i ADC. Podria suposar una petita
-    ;; millora.
-
-    push de
-    ld de, #-SIZEOF_ENTITY_T
-    add hl, de
-    pop de
     jr __entity_mgr_gc_sweep_end_if
 
 __entity_mgr_gc_sweep_entity_alive:
