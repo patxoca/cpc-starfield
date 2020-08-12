@@ -9,21 +9,21 @@ void sys_physics_create_star(void) {
     entity_mgr_set_type(e, 1);
     e->x = 80;
     e->y = cpct_rand8() % 200;  // INEFICIENT
-    e->vx = cpct_rand8() & 3;
-    if (e->vx == 0) {
-        e->vx = 1; // HACK: sembla arbitrari, provar amb un do while
-    }
+    e->vx = 1 + (cpct_rand8() & 3);
     e->vptr = cpct_getScreenPtr(CPCT_VMEM_START, e->x, e->y);
     e->ovptr = 0;
     switch (e->vx) {
     case 1:
-        e->color = 0x88;  // colors [1, 0]
+        e->color = 0x20;  // colors [4, 0]
         break;
     case 2:
-        e->color = 0x08;  // colors [2, 0]
+        e->color = 0x88;  // colors [3, 0]
         break;
     case 3:
-        e->color = 0x80;  // colors [3, 0]
+        e->color = 0x08;  // colors [2, 0]
+        break;
+    case 4:
+        e->color = 0x80;  // colors [1, 0]
         break;
     }
 }
