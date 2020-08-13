@@ -11,8 +11,8 @@ void main(void) {
     while (1) {
         sys_physics_add_star();
         sys_physics_update_stars();
+        cpct_waitVSYNC();
         sys_render_draw_stars();
         entity_mgr_gc();
-        cpct_waitVSYNC();
     }
 }
