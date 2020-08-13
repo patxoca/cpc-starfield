@@ -33,7 +33,7 @@ void sys_physics_update_star(entity_t *e) __z88dk_fastcall {
 
     e->x -= e->vx;
     if (px < e->x) {
-        entity_mgr_gc_mark(e);
+        entity_mgr_release(e);
     } else {
         e->vptr -= e->vx;
     }

@@ -32,14 +32,14 @@ entity_t *entity_mgr_alloc(void);
 //==============================================================================
 //   Marca una entitat per destruir-la.
 //
-void entity_mgr_gc_mark(entity_t *e) __z88dk_fastcall;
+void entity_mgr_release(entity_t *e) __z88dk_fastcall;
 
 
 //==============================================================================
 //   Allibera l'espai ocupat per les entitats marcades.
 //
 
-void entity_mgr_gc_sweep(void);
+void entity_mgr_gc(void);
 
 
 //==============================================================================

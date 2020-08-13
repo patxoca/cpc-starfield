@@ -7,10 +7,10 @@
     SIZEOF_ENTITY_T = 9
 
     ;; ---------------------------------
-    ;; entity_mgr_gc_sweep
+    ;; entity_mgr_gc
     ;; ---------------------------------
 
-    ;; void entity_mgr_gc_sweep(void) {
+    ;; void entity_mgr_gc(void) {
     ;;     entity_t *curr = entities;
     ;;     entity_t *end = free_ptr - 1;
     ;;     u8 count = num_entities;
@@ -31,7 +31,7 @@
     ;;     num_entities -= foo;
     ;; }
 
-_entity_mgr_gc_sweep::
+_entity_mgr_gc::
     ld	de, #_entities          ; DE apunta a la entitat actual
     ld  bc, #-SIZEOF_ENTITY_T
     ld	hl, (#_free_ptr)
@@ -41,24 +41,24 @@ _entity_mgr_gc_sweep::
     xor a
     ld  c, a                    ; C nombre d'entitats recuperades
 
-__entity_mgr_gc_sweep_loop:
+__entity_mgr_gc_loop:
     ;; count-- == 0?
     ld a, b
     dec b
     or a
-    jr z, __entity_mgr_gc_sweep_loop_end
+    jr z, __entity_mgr_gc_loop_end
 
     ;; queden entitats per processar
     ld a, (de)
     rlca                        ; entitat viva?
-    jr nc, __entity_mgr_gc_sweep_entity_alive
+    jr nc, __entity_mgr_gc_entity_alive
 
     ;; entitat marcada per gc
     inc c                       ; incrementa comptador d'entitats
                                 ; recuperades
     ld a, b                     ; queden entitats per processar?
     or a
-    jr z, __entity_mgr_gc_sweep_skip_memcpy
+    jr z, __entity_mgr_gc_skip_memcpy
                                 ; si no queden entitas (és la última)
                                 ; ens estalviem el memcpy
 
@@ -76,7 +76,7 @@ __entity_mgr_gc_sweep_loop:
     pop bc
     pop de
     pop hl
-__entity_mgr_gc_sweep_skip_memcpy:
+__entity_mgr_gc_skip_memcpy:
     ;; endarrereix el punter a la última entitat (HL)
     ld a, l
     sub #SIZEOF_ENTITY_T
@@ -85,9 +85,9 @@ __entity_mgr_gc_sweep_skip_memcpy:
     sbc a, #0
     ld h, a
 
-    jr __entity_mgr_gc_sweep_end_if
+    jr __entity_mgr_gc_end_if
 
-__entity_mgr_gc_sweep_entity_alive:
+__entity_mgr_gc_entity_alive:
     ;; avança el punter a l'entitat actual (DE)
     ld a, #SIZEOF_ENTITY_T
     add a, e
@@ -96,10 +96,10 @@ __entity_mgr_gc_sweep_entity_alive:
     sub e
     ld d, a
 
-__entity_mgr_gc_sweep_end_if:
-    jr __entity_mgr_gc_sweep_loop
+__entity_mgr_gc_end_if:
+    jr __entity_mgr_gc_loop
 
-__entity_mgr_gc_sweep_loop_end:
+__entity_mgr_gc_loop_end:
 
     ;; free_ptr = end + 1
     ld (#_free_ptr), de
