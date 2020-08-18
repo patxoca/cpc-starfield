@@ -3,8 +3,8 @@
 #include "render.h"
 
 static const u8 palette[16 + 1] = {
-    HW_BLACK, HW_BRIGHT_WHITE, HW_BRIGHT_CYAN, HW_YELLOW,
-    HW_RED,   HW_RED,          HW_RED,           HW_RED,
+    HW_BLACK, HW_BRIGHT_WHITE, HW_YELLOW,        HW_WHITE,
+    HW_WHITE, HW_RED,          HW_RED,           HW_RED,
     HW_RED,   HW_RED,          HW_RED,           HW_RED,
     HW_RED,   HW_RED,          HW_RED,           HW_RED,
     HW_BLACK
