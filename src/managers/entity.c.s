@@ -111,3 +111,58 @@ __entity_mgr_gc_loop_end:
     ld (hl), a
 
     ret
+
+
+
+    ;; --------------------------------
+    ;; entity_mgr_foreach
+    ;; --------------------------------
+    ;;
+    ;; Utilitza el conveni de crida __z88dk_fastcall
+    ;;
+    ;;  - HL: punter a la funció
+    ;;
+    ;; La funció s'automodifica i no és reentrant.
+
+    ;; void entity_mgr_foreach(void (*f)(entity_t *e) __z88dk_fastcall) __z88dk_fastcall {
+    ;;     entity_t *p = entities;
+    ;;     u8 count = num_entities;
+    ;;     void (*lf)(entity_t *e)  __z88dk_fastcall = f;
+    ;;
+    ;;     while (count--) {
+    ;;         lf(p);
+    ;;         p++;
+    ;;     }
+    ;; }
+
+_entity_mgr_foreach::
+    ld (#__entity_mgr_foreach_call + 1), hl
+                                ; modifica la instrucción call
+    ld hl, #_entities+0         ; HL punter a l'entitat actual
+	ld a,(#_num_entities)
+    ld b, a                     ; B comptador entitats romanents
+
+__entity_mgr_foreach_loop:
+	ld a, b                     ; while (count != 0)
+    or a, a
+	jr z, __entity_mgr_foreach_exit_loop
+
+    push hl                     ; preserva HL
+    push bc                     ; preserva B
+__entity_mgr_foreach_call:
+	call #0xffff                ; l'adreça es modificada
+    pop bc
+    pop hl
+
+	dec b                       ; count--
+    ld a, #9                    ; p++
+    add l
+    ld l, a
+    adc h
+    sub l
+    ld h, a
+
+	jr	__entity_mgr_foreach_loop
+
+__entity_mgr_foreach_exit_loop:
+	ret
