@@ -17,26 +17,25 @@ void entity_mgr_init(void) {
 entity_t *entity_mgr_alloc(void) {
     entity_t *ptr = free_ptr;
     entity_t *tmp = ptr;
+    u8 ne;
 
     ++tmp;
     free_ptr = tmp;
     ptr->type = 0;
-    num_entities++;
+    ne = num_entities;
+    ne++;
+    num_entities = ne;
     return ptr;
 }
 
 
 void entity_mgr_release(entity_t *e) __z88dk_fastcall {
-    u8 tmp = e->type;
-
-    e->type = (tmp | ENTITY_DEAD_FLAG);
+    e->type |= ENTITY_DEAD_FLAG;
 }
 
 
 void entity_mgr_set_type(entity_t *e, u8 type) {
-    u8 tmp = e->type;
-
-    e->type = (tmp & 0x80) | (type & 0x7f);
+    e->type = (e->type & 0x80) | (type & 0x7f);
 }
 
 
