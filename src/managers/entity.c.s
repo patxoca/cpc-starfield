@@ -155,7 +155,7 @@ __entity_mgr_foreach_call:
     pop hl
 
 	dec b                       ; count--
-    ld a, #9                    ; p++
+    ld a, #SIZEOF_ENTITY_T      ; p++
     add l
     ld l, a
     adc h
