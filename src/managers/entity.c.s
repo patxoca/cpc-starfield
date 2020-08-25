@@ -4,7 +4,7 @@
     .globl _num_entities
     .globl _free_ptr
 
-    SIZEOF_ENTITY_T = 9
+    SIZEOF_ENTITY_T = 10
 
     ;; ---------------------------------
     ;; entity_mgr_gc
